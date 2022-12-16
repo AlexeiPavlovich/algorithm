@@ -53,6 +53,8 @@ public class TreeTest {
 		
 		tree.print();
 		
+		System.out.println(tree.isBST());
+		
 		/*
 		 * for (int i = 0; i < num.length; i++) { int found = tree.search(num[i]);
 		 * Assert.assertEquals(num[i], found); } System.out.println(tree.getSorted());

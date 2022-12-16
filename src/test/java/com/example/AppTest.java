@@ -1,6 +1,5 @@
 package com.example;
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -10,10 +9,10 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 import java.util.Set;
 import java.util.Stack;
 import java.util.TreeMap;
-import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -27,6 +26,38 @@ public class AppTest {
 	/**
 	 * Rigorous Test :-)
 	 */
+	
+	@Test
+	public void TestQueue() {
+		Queue<Integer> q = new LinkedList<>();
+
+    // Adds elements {0, 1, 2, 3, 4} to
+    // the queue
+    for (int i = 0; i < 5; i++) {
+        q.add(i);
+    }
+   
+
+    // Display contents of the queue.
+    System.out.println("Elements of queue "+ q);
+
+    // To remove the head of queue.
+    int removedele = q.remove();
+    System.out.println("removed element "+ removedele);
+
+    System.out.println(q);
+
+    // To view the head of queue
+    int head = q.peek();
+    System.out.println("head of queue "+ head);
+
+    // Rest all methods of collection
+    // interface like size and contains
+    // can be used with this
+    // implementation.
+    int size = q.size();
+    System.out.println("Size of queue "+ size);
+	}
 	
 	
 	@Test
@@ -293,81 +324,5 @@ public class AppTest {
 			this.neighbors = neighbors;
 		}
 	}
-	
-	@Test
-	public void mazeBackTracking() {
-		
-		List<Neighbors> maze=new ArrayList<>(9);
-		maze.add(new Neighbors(Arrays.asList(1,3)));//0
-		maze.add(new Neighbors(Arrays.asList(0,2)));//1
-		maze.add(new Neighbors(Arrays.asList(1)));//2
-		maze.add(new Neighbors(Arrays.asList(0,4,6)));//3
-		maze.add(new Neighbors(Arrays.asList(3,5,7)));//4
-		maze.add(new Neighbors(Arrays.asList(4)));//5
-		maze.add(new Neighbors(Arrays.asList(3)));//6
-		maze.add(new Neighbors(Arrays.asList(4,8)));//7
-		maze.add(new Neighbors(Arrays.asList(7)));//8
-
-		List<Integer> path=findPathFromMaze(maze,0,8);
-		System.out.println(path);
-		
-		
-		List<Integer> path1 = findPathFromMazeRec(maze, new Stack<>(), new HashSet<>(), 0, 8);
-		System.out.println(path1);
-	}
-	
-	
-	private List<Integer> findPathFromMazeRec(List<Neighbors> maze, Stack<Integer> path, Set<Integer> visited,
-			int currentPoint, int finish) {
-
-		if(path.isEmpty()) {
-			path.add(currentPoint);
-			visited.add(currentPoint);
-		}
-
-		Consumer<Integer> foundOutlet = nextstep -> {
-			path.push(nextstep);
-			visited.add(nextstep);
-		};
-		Runnable alreadyVisited = () -> path.pop();
-
-		maze.get(currentPoint).neighbors.stream().filter(neighbor -> !visited.contains(neighbor)).findFirst()
-				.ifPresentOrElse(foundOutlet, alreadyVisited);
-
-		return (path.isEmpty() || path.lastElement() == finish) ? path.stream().collect(Collectors.toList())
-				: findPathFromMazeRec(maze, path, visited, path.lastElement(), finish);
-	}
-
-
-	private List<Integer> findPathFromMaze(List<Neighbors> maze, int start, int finish) {
-		Stack<Integer> path = new Stack<>();
-		Set<Integer> visited = new HashSet<>();
-
-		path.add(start);
-		int currentPoint = start;
-		visited.add(currentPoint);
-
-		Consumer<Integer> foundOutlet = nextstep -> {
-			path.push(nextstep);
-			visited.add(nextstep);
-		};
-		Runnable alreadyVisited = () -> path.pop();
-
-		while (path.lastElement() != finish && !path.empty()) {
-
-			maze.get(currentPoint).neighbors.stream().filter(neighbor -> !visited.contains(neighbor)).findFirst()
-					.ifPresentOrElse(foundOutlet, alreadyVisited);
-			if(path.empty()) {
-				break;
-			}
-			currentPoint = path.lastElement();
-		}
-
-		return path.stream().collect(Collectors.toList());
-
-	}
-
-	
-
 
 }
