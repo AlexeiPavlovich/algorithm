@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
+import java.util.function.Predicate;
 
 import org.junit.Test;
 
 public class TopologicalOrderingTest {
+	
+	private static Predicate<Vertex> isNotVisited = v -> !v.isVisited();
 	
 	
 	@Test
@@ -34,7 +37,7 @@ public class TopologicalOrderingTest {
 		
 		TopologicalSearch search= new TopologicalSearch();
 		
-		graph.stream().filter(v->!v.isVisited()).forEach(search::dfs);
+		graph.stream().filter(isNotVisited).forEach(search::dfs);
 		
 		
 		while(!search.getStack().isEmpty()) {
@@ -53,7 +56,7 @@ public class TopologicalOrderingTest {
 		
 		public void dfs(Vertex vertex) {
 			vertex.setVisited(true);
-			vertex.getAdjacencyList().stream().filter(v->!v.isVisited()).forEach(this::dfs);
+			vertex.getAdjacencyList().stream().filter(isNotVisited).forEach(this::dfs);
 			stack.push(vertex);
 		}
 		
