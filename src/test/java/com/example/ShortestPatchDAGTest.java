@@ -58,6 +58,7 @@ public class ShortestPatchDAGTest {
 				int recalcDistance = currVertex.getMinDistance() + edge.getWidth();
 				if (recalcDistance < targetVertex.getMinDistance()) {
 					targetVertex.setMinDistance(recalcDistance);
+					targetVertex.setPredecessor(currVertex);
 					System.out.println(" recalc  distance: " + recalcDistance);
 				}
 				System.out.println();

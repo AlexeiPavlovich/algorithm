@@ -3,7 +3,7 @@ package com.example;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Vertex {
+public class Vertex implements Comparable<Vertex>{
 
 	private String name;
 
@@ -16,7 +16,7 @@ public class Vertex {
 	// shortest path from source to actual vertex
 	private int minDistance = Integer.MAX_VALUE;
 
-	// previuos node in the shorter path
+	// Previous node in the shorter path
 	private Vertex predecessor;
 
 	public Vertex(String name) {
@@ -49,7 +49,7 @@ public class Vertex {
 
 	@Override
 	public String toString() {
-		return (predecessor != null) ? getName() + " predecessor: " + getPredecessor() : getName();
+		return (predecessor != null) ? getName()+"("+ getMinDistance() +")" + " <= " + getPredecessor() : getName()+"("+ getMinDistance() +")";
 	}
 
 	public int getMinDistance() {
@@ -74,6 +74,11 @@ public class Vertex {
 
 	public void setAdjacencyEdgeList(List<Edge> adjacencyEdgeList) {
 		this.adjacencyEdgeList = adjacencyEdgeList;
+	}
+
+	@Override
+	public int compareTo(Vertex o) {
+		return Integer.compare(getMinDistance(), o.getMinDistance());
 	}
 
 }
