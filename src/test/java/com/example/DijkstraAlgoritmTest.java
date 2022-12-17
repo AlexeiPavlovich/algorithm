@@ -58,11 +58,14 @@ public class DijkstraAlgoritmTest {
 		PriorityQueue<Vertex> queue = new PriorityQueue<>();
 		queue.add(source);
 		while (!queue.isEmpty()) {
+			System.out.println(queue.toString());
 			Vertex actualVertex = queue.poll();
+			System.out.println("actualVertex: "+actualVertex);
 			actualVertex.getAdjacencyEdgeList().forEach(edge -> {
 				Vertex targetVertex = edge.getTargetVertex();
 				int recalcDistance = actualVertex.getMinDistance() + edge.getWidth();
 				if (recalcDistance < targetVertex.getMinDistance()) {
+					System.out.println("targetVertex recalc "+targetVertex +" to "+recalcDistance);
 					queue.remove(targetVertex);
 					targetVertex.setMinDistance(recalcDistance);
 					targetVertex.setPredecessor(actualVertex);
