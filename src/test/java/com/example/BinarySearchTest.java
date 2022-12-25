@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import junit.framework.Assert;
 
-public class SearchTest {
+public class BinarySearchTest {
 
 	@Test
 	public void TestBinarySearch() {
