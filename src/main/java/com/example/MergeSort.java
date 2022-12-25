@@ -20,25 +20,20 @@ public class MergeSort {
 		if (low >= hight) {
 			return;
 		}
-
 		int mid = (low + hight) / 2;
 		mergeSort(low, mid);
 		mergeSort(mid + 1, hight);
-
 		mergeSubArrays(low, mid, hight);
 
 	}
 
 	private void mergeSubArrays(int low, int mid, int hight) {
-
 		for (int i = low; i <= hight; i++) {
 			tempArray[i] = array[i];
 		}
-
 		int i = low;
 		int j = mid + 1;
 		int k = low;
-
 		while (i <= mid && j <= hight) {
 			array[k++] = (tempArray[i] < tempArray[j]) ? tempArray[i++] : tempArray[j++];
 		}

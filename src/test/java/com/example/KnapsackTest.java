@@ -24,6 +24,23 @@ public class KnapsackTest {
 		//System.out.println(sumPrice);
 		//Arrays.stream(arr).filter(ind -> ind != -1).forEach(ind->System.out.println(packs[ind]));
 		System.out.println(KS2(capacity,packs));
+		System.out.println(KS3(capacity,packs,packs.length-1));
+
+	}
+	
+	int KS3(int capacity, Pack[] packs,int currIndex) {
+		
+		if(currIndex == 0) {
+			return 0;
+		}
+		
+		if(packs[currIndex].width > capacity) {
+			return KS3(capacity, packs,currIndex-1);
+		}
+		
+		int includeCurrPack=packs[currIndex].price+KS3(capacity-packs[currIndex].width, packs,currIndex-1);
+		int excludeCurrPack=KS3(capacity, packs,currIndex-1);
+		return Math.max(includeCurrPack, excludeCurrPack);
 
 	}
 	

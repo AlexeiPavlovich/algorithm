@@ -10,28 +10,22 @@ public class QuickSort {
 
 	private void quickSort(int[] array, int left, int right) {
 		if (left < right) {
-			int partitionInd = partition(array, left, right);
-			quickSort(array, left, partitionInd - 1);
-			quickSort(array, partitionInd + 1, right);
+			int partition = partition(array, left, right);
+			quickSort(array, left, partition - 1);
+			quickSort(array, partition + 1, right);
 		}
-
 	}
 
 	private int partition(int[] array, int left, int right) {
-
 		int pivot = array[right];
-
 		int separateInd = left - 1;
-
-		for (int currInd = left; currInd < right; currInd++) {
-			if (array[currInd] < pivot) {
-				swap(array, ++separateInd, currInd);
+		for (int i = left; i < right; i++) {
+			if (array[i] < pivot) {
+				swap(array, i, ++separateInd);
 			}
 		}
-
-		swap(array, ++separateInd, right);
+		swap(array, right, ++separateInd);
 		return separateInd;
-
 	}
 
 	private void printArray(int[] array, int left, int right) {
