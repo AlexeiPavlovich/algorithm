@@ -24,8 +24,10 @@ public class CycleDetectionTest {
 	}
 
 	private void detectCycle(Vertex vertex) {
+		System.out.println("parent:"+vertex.getName());
 		vertex.setBeingVisited(true);
 		for (Vertex child : vertex.getAdjacencyList()) {
+			System.out.println("child:"+child.getName());
 			if (child.isBeingVisited()) {
 				System.out.println("backward edge ... There is a cycle from " + vertex.getName() + " to " + child.getName());
 				return;
@@ -34,7 +36,7 @@ public class CycleDetectionTest {
 				detectCycle(child);
 			}
 		}
-		System.out.println(vertex.getName());
+		System.out.println("backtrack:" + vertex.getName());
 		vertex.setVisited(true);
 
 	}
