@@ -8,6 +8,8 @@ public class Vertex implements Comparable<Vertex>{
 	private String name;
 
 	private boolean visited;
+	
+	private boolean isBeingVisited;
 
 	private List<Vertex> adjacencyList = new ArrayList<>();
 
@@ -79,6 +81,14 @@ public class Vertex implements Comparable<Vertex>{
 	@Override
 	public int compareTo(Vertex o) {
 		return Integer.compare(getMinDistance(), o.getMinDistance());
+	}
+
+	public boolean isBeingVisited() {
+		return isBeingVisited;
+	}
+
+	public void setBeingVisited(boolean isBeingVisited) {
+		this.isBeingVisited = isBeingVisited;
 	}
 
 }
