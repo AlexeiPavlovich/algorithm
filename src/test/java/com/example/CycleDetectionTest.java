@@ -7,6 +7,7 @@ import org.junit.Test;
 
 public class CycleDetectionTest {
 
+	
 	@Test
 	public void TestCycleDetection() {
 		Vertex d = new Vertex("D");
