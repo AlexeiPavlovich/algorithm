@@ -23,7 +23,6 @@ public class CycleDetectionTest {
 	}
 
 	private void detectCycle(Vertex vertex) {
-
 		vertex.setBeingVisited(true);
 		for (Vertex child : vertex.getAdjacencyList()) {
 			if (child.isBeingVisited()) {
