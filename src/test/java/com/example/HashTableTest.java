@@ -37,8 +37,8 @@ public class HashTableTest {
 		iterator = table.iterator();
 		System.out.println("********");
 		while (iterator.hasNext()) {
-			String key=iterator.next().key;
-			if(key.equals("5")) {
+			String key = iterator.next().key;
+			if (key.equals("5")) {
 				iterator.remove();
 			}
 		}
@@ -62,40 +62,35 @@ public class HashTableTest {
 		while (iterator.hasNext()) {
 			System.out.println(iterator.next().value);
 		}
-		
-		
-		
+
 		iterator = table.iterator();
 		System.out.println("********");
 		while (iterator.hasNext()) {
 			iterator.next();
 			iterator.remove();
 		}
-		
-		
+
 		table.put("aaa", 1);
 		table.put("AAA", 1);
 		table.put("aAa", 1);
 		table.put("AAa", 1);
 		table.put("aAA", 1);
-		
-		
+
 		iterator = table.iterator();
 		while (iterator.hasNext()) {
 			System.out.println(iterator.next().key);
 		}
-		
+
 		iterator = table.iterator();
 		System.out.println("********");
 		while (iterator.hasNext()) {
-			String key=iterator.next().key;
-			if(key.equals("AAa")) {
+			String key = iterator.next().key;
+			if (key.equals("AAa")) {
 				iterator.remove();
 			}
 		}
 		System.out.println("********");
-		
-		
+
 		iterator = table.iterator();
 		while (iterator.hasNext()) {
 			System.out.println(iterator.next().key);
