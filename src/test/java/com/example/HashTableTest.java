@@ -62,6 +62,44 @@ public class HashTableTest {
 		while (iterator.hasNext()) {
 			System.out.println(iterator.next().value);
 		}
+		
+		
+		
+		iterator = table.iterator();
+		System.out.println("********");
+		while (iterator.hasNext()) {
+			iterator.next();
+			iterator.remove();
+		}
+		
+		
+		table.put("aaa", 1);
+		table.put("AAA", 1);
+		table.put("aAa", 1);
+		table.put("AAa", 1);
+		table.put("aAA", 1);
+		
+		
+		iterator = table.iterator();
+		while (iterator.hasNext()) {
+			System.out.println(iterator.next().key);
+		}
+		
+		iterator = table.iterator();
+		System.out.println("********");
+		while (iterator.hasNext()) {
+			String key=iterator.next().key;
+			if(key.equals("AAa")) {
+				iterator.remove();
+			}
+		}
+		System.out.println("********");
+		
+		
+		iterator = table.iterator();
+		while (iterator.hasNext()) {
+			System.out.println(iterator.next().key);
+		}
 
 	}
 
@@ -75,7 +113,7 @@ public class HashTableTest {
 		private int capacity;
 
 		public Table() {
-			this(3);
+			this(10);
 		}
 
 		public Table(int initialCapacity) {
@@ -119,12 +157,13 @@ public class HashTableTest {
 				return;
 			}
 
+			entry = table[index];
 			Entry<K, V> previosEntry = entry;
 			while (entry != null) {
-				entry = entry.next;
 				previosEntry = entry;
+				entry = entry.next;
 			}
-			entry = createEntry(key, value, previosEntry);
+			previosEntry.next = createEntry(key, value, previosEntry);
 			size++;
 		}
 
@@ -230,11 +269,11 @@ public class HashTableTest {
 			@Override
 			public void remove() {
 				if (table.table[tablePos] == entry) {
-					table.table[tablePos] = null;
+					table.table[tablePos] = entry.next;
 					tablePos++;
 					entry = null;
 				} else {
-					entry = entry.previous = entry.next;
+					entry = entry.previous.next = entry.next;
 				}
 				table.size--;
 			}
