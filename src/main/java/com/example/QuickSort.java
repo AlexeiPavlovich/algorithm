@@ -9,11 +9,13 @@ public class QuickSort {
 	}
 
 	private void quickSort(int[] array, int left, int right) {
-		if (left < right) {
-			int partition = partition(array, left, right);
-			quickSort(array, left, partition - 1);
-			quickSort(array, partition + 1, right);
+		if (left >= right) {
+			return;
 		}
+		int partition = partition(array, left, right);
+		quickSort(array, left, partition - 1);
+		quickSort(array, partition + 1, right);
+
 	}
 
 	private int partition(int[] array, int left, int right) {
