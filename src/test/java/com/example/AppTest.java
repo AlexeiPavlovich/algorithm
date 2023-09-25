@@ -2,22 +2,23 @@ package com.example;
 
 import static org.junit.Assert.assertTrue;
 
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Queue;
-import java.util.Set;
 import java.util.Stack;
 import java.util.TreeMap;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.junit.Test;
+
+import junit.framework.Assert;
 
 /**
  * Unit test for simple App.
@@ -28,36 +29,112 @@ public class AppTest {
 	 */
 	
 	@Test
-	public void TestQueue() {
-		Queue<Integer> q = new LinkedList<>();
+	public void TestSplit() {
+		String parameters = "some.id=OrderItemId_1&referenceId=123=456&some.name=Line_Type1=Line_Type";
+		
+		String[] array = parameters.split("&(?=[^&]+=)");
+		
 
-    // Adds elements {0, 1, 2, 3, 4} to
-    // the queue
-    for (int i = 0; i < 5; i++) {
-        q.add(i);
-    }
-   
-
-    // Display contents of the queue.
-    System.out.println("Elements of queue "+ q);
-
-    // To remove the head of queue.
-    int removedele = q.remove();
-    System.out.println("removed element "+ removedele);
-
-    System.out.println(q);
-
-    // To view the head of queue
-    int head = q.peek();
-    System.out.println("head of queue "+ head);
-
-    // Rest all methods of collection
-    // interface like size and contains
-    // can be used with this
-    // implementation.
-    int size = q.size();
-    System.out.println("Size of queue "+ size);
+		
+		System.out.println(Arrays.toString(array));
+		
 	}
+	
+	@Test
+	public void TestQueue() {
+		//longestSubstringWithoutRepeating("eddy");
+		
+		//reverseList(new LinkedList2(new Node(1,new Node(2,new Node(3)))));
+		
+		OffsetDateTime date1 = OffsetDateTime.parse("2023-07-25T18:00:00Z");
+		OffsetDateTime date2 = OffsetDateTime.parse("2023-07-25T21:00:00+03:00");
+		int comparisonResult = date1.compareTo(date2);
+		OffsetDateTime dateSameTimeZone2 = date2.atZoneSameInstant(ZoneId.of("UTC")).toOffsetDateTime();
+		comparisonResult = date1.compareTo(dateSameTimeZone2);
+		Assert.assertNotSame(date1,date2);
+		Assert.assertEquals(date1, dateSameTimeZone2);
+		
+		List<Item1> lst=new ArrayList<>(Arrays.asList(new Item1("suspend"),new Item1("terminate"),new Item1("resume")));
+		
+		for(int i=0;i<lst.size();i++) {
+			Item1 item=lst.get(i);
+			if(item.name.equals("suspend")) {
+				lst.get(1).show=false;
+			}
+			if(item.show) {
+				System.out.println(item.name);
+			}
+			if(item.name.equals("resume")) {
+				lst.get(1).show=true;
+				lst.add(lst.get(1));
+			}
+			
+		}
+		Assert.assertTrue("InvalidProductOfferingActionValidationMessage-aggregate".contains("aggregate"));
+		
+		
+	}
+	
+	 static class Item1{
+		 public Item1(String name) {
+			 this.name=name;
+		 }
+		 boolean show=true;
+		 String name;
+	 }
+	
+	 static class Node{
+		    int data;
+		        Node next;
+		        Node(int data){this.data = data; this.next = null;}
+		        Node(int data, Node next){this.data = data; this.next = next;}
+		    }
+		  
+		    static class LinkedList2{
+		        Node head;
+		        LinkedList2(){this.head = null;}
+		        LinkedList2(Node head){this.head = head;}
+		    }
+		    
+	
+		    public void reverseList(LinkedList2 list){
+		        Stack<Node> stack=new Stack<>();
+		        Node currNode=list.head;
+		        while(currNode!=null) {
+		        	stack.add(currNode);
+		        	currNode=currNode.next;
+		        }
+		        list.head=null;
+		        currNode=null;
+		        while(!stack.isEmpty()){
+		            Node elem = stack.pop();
+		            elem.next=null;
+		            if(list.head == null){
+		                list.head=elem;
+		                currNode=list.head;
+		            }
+		            else {
+		            	currNode.next=elem;
+		            	currNode=currNode.next;
+		            }
+		        }
+
+		    }
+	
+	 public int maximumSubarray(int[] arr){
+	      int max=Integer.MIN_VALUE;
+	      for(int i=0;i<arr.length;i++) {
+	    	  int localSum=0;
+	    	  for(int j=i;j<arr.length;j++) {
+	    		  localSum+=arr[j];
+	    		  max=Math.max(max, localSum);
+	    	  }
+	    	  
+	      }
+	      
+	      return max;
+	 
+	 }
 	
 	
 	@Test
