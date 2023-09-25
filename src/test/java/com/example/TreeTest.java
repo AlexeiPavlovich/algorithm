@@ -23,17 +23,6 @@ public class TreeTest {
 
 		System.out.println(tree.toList().toString());
 
-		tree.rebalance(tree.root);
-
-		System.out.println(tree.toList().toString());
-
-		System.out.println("........................");
-
-		tree.rebalance(tree.root);
-
-		System.out.println("height root:" + tree.getHeightRec(tree.root));
-		System.out.println("height right:" + tree.getHeightRec(tree.root.getRight()));
-		System.out.println("height left:" + tree.getHeightRec(tree.root.getLeft()));
 
 		System.out.println(tree.toList().toString());
 		int treeLen = tree.len();
@@ -155,88 +144,7 @@ public class TreeTest {
 			return getAtIndexRec(root, index);
 		}
 
-		private void rebalance(Node currNode) {
 
-			if (currNode == null) {
-				return;
-			}
-			rebalance(currNode.getLeft());
-			rebalance(currNode.getRight());
-
-			if (currNode.getLeft() != null || currNode.getRight() != null) {
-				int hLeft = getHeightRec(currNode.getLeft());
-				int hRight = getHeightRec(currNode.getRight());
-				int balanceFactor = hLeft- hRight;
-				if (Math.abs(balanceFactor) > 1) {
-					System.out.println("recalc balance for " + currNode.getData() + " balance factor:" + balanceFactor
-							+ " left h:" + hLeft + " h right: " + hRight);
-
-					if (balanceFactor > 0) {
-						rotateRight(currNode);
-					} else{
-						rotateLeft(currNode);
-					}
-
-				}
-
-			}
-
-		}
-
-
-
-		private void rotateLeft(Node currNode) {
-			//System.out.println("**********************************************************");
-			//printRec(currNode);
-			rotate(currNode,false);
-			//System.out.println("rotated:");
-			//printRec(currNode);
-			//System.out.println("**********************************************************");
-		}
-
-		private void rotateRight(Node currNode) {
-			//System.out.println("**********************************************************");	
-			//printRec(currNode);
-			rotate(currNode,true);
-			//System.out.println("rotated:");
-			//printRec(currNode);
-			//System.out.println("**********************************************************");		
-		}
-		
-		
-		private void rotate(Node rootNode,boolean rightRotation) {
-			
-			
-			int savedData=rootNode.getData();
-			
-			if(rightRotation) {
-				Node leftRight=rootNode.getLeft().getRight();
-				rootNode.setData(rootNode.getLeft().getData());
-				rootNode.setRight(rootNode.getLeft());
-				rootNode.getRight().setData(savedData);
-				rootNode.setLeft(rootNode.getLeft().getLeft());
-				rootNode.getRight().setLeft(leftRight);
-				rootNode.getLeft().setRight(null);
-			}
-			else {
-				Node rightLeft=rootNode.getRight().getLeft();
-
-				rootNode.setData(rootNode.getRight().getData());
-				rootNode.setLeft(rootNode.getRight());
-				rootNode.getLeft().setData(savedData);
-				rootNode.setRight(rootNode.getRight().getRight());
-				rootNode.getLeft().setRight(rightLeft);
-				rootNode.getLeft().setLeft(null);
-			}
-		}
-
-		private int getHeightRec(Node currNode) {
-			if (currNode == null) {
-				return -1;
-			}
-
-			return Math.max(getHeightRec(currNode.getLeft()), getHeightRec(currNode.getRight())) + 1;
-		}
 
 		private int getAtIndexRec(Node currNode, int index) {
 
