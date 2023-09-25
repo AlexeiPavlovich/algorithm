@@ -179,18 +179,10 @@ public class PredicateEvaluator {
 
 			if (Operand.OPEN_BRACKET.equals(op)) {
 				braketsStack.push(Operand.OPEN_BRACKET);
-				boolean conditionResult = runPredicate(stackPredicates, stackOperation, operandStack, braketsStack, evaluator);
-				operandStack.push(conditionResult);
-				if (stackOperation.isEmpty()) {
-					return evaluateOperandStack(operandStack);
-				}
+				operandStack.push(runPredicate(stackPredicates, stackOperation, operandStack, braketsStack, evaluator));
 			} else if (Operand.OPEN_BRACKET_WITH_EXCLAMATION.equals(op)) {
 				braketsStack.push(Operand.OPEN_BRACKET_WITH_EXCLAMATION);
-				boolean conditionResult = !runPredicate(stackPredicates, stackOperation, operandStack, braketsStack, evaluator);
-				operandStack.push(conditionResult);
-				if (stackOperation.isEmpty()) {
-					return evaluateOperandStack(operandStack);
-				}
+				operandStack.push(!runPredicate(stackPredicates, stackOperation, operandStack, braketsStack, evaluator));
 
 			} else if (Operand.CLOSE_BRACKET.equals(op)) {
 				return evaluateOperandStack(operandStack);
